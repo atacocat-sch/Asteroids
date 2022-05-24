@@ -1,5 +1,6 @@
 
 #include "AsteroidPool.h"
+#include "Game.h"
 
 #include <iostream>
 
@@ -15,6 +16,8 @@ AsteroidPool::AsteroidPool()
 
 void AsteroidPool::Update()
 {
+	float deltaTime = GetFrameTime();
+
 	int activeAsteroids = 0;
 	for (int i = 0; i < asteroidPoolSize; i++)
 	{
@@ -28,6 +31,9 @@ void AsteroidPool::Update()
 	{
 		GetAsteroid();
 	}
+
+	minAsteroids = minAsteroidOffset + minAsteroidIncrease * mainGameScene.sceneTime;
+	maxSize = maxSizeOffset + maxSizeIncrease * mainGameScene.sceneTime;
 }
 
 Asteroid* AsteroidPool::GetAsteroid()

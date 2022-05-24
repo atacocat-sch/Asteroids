@@ -17,6 +17,8 @@ public:
 
 	float mass = 1.0f;
 
+	bool notPhysical = false;
+
 	PhysicsShape physicsShape = {this, nullptr, 0};
 	
 	virtual void OnCollision(CollisionData data) {}

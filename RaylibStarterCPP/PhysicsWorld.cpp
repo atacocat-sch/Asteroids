@@ -2,7 +2,9 @@
 #include "PhysicsWorld.h"
 #include "PhysicsObject.h"
 #include "raylib.h"
+#include "raylibTools.h"
 #include "raylibAdapter.h"
+#include "Game.h"
 
 #include <iostream>
 #include <algorithm>
@@ -58,22 +60,36 @@ void PhysicsWorld::CheckCollision()
 				{
 					if (Overlaps(&a->physicsShape, &b->physicsShape, &dataA, &dataB))
 					{
-						Vector2 netForce = a->velocity + b->velocity;
-						float totalMass = a->mass + b->mass;
+						Vector2 aVelocity = a->velocity;
+						Vector2 bVelocity = b->velocity;
 
-						a->position += dataA.normal * dataA.overlap;
-						if (Vector2Length(a->velocity) > 0.001f)
+						bool physicalCollision = !a->notPhysical && !b->notPhysical;
+
+						if (physicalCollision)
 						{
-							a->velocity += Vector2Normalize(a->velocity) * min(Vector2DotProduct(a->velocity, dataA.normal), 0.0f);
+							a->position += dataA.normal * dataA.overlap;
+							b->position += dataB.normal * dataB.overlap;
+
+							Vector2 normal = dataA.normal;
+							Vector2 tangent = { normal.y, -normal.x };
+
+							float tangentDotA = Vector2DotProduct(aVelocity, tangent);
+							float tangentDotB = Vector2DotProduct(bVelocity, tangent);
+
+							float normalDotA = Vector2DotProduct(aVelocity, normal);
+							float normalDotB = Vector2DotProduct(bVelocity, normal);
+
+						 	float mA = normalDotA* (a->mass - b->mass) / (a->mass + b->mass) + normalDotB * (2.0f * b->mass) / (a->mass + b->mass);
+							float mB = normalDotA* (2.0f * a->mass) / (a->mass + b->mass) + normalDotB * (b->mass - a->mass) / (a->mass + b->mass);
+
+							a->velocity = tangent * tangentDotA + normal * mA;
+							b->velocity = tangent * tangentDotB + normal * mB;
 						}
+
 						a->OnCollision(dataA);
-
-						b->position += dataB.normal * dataB.overlap;
-						if (Vector2Length(b->velocity) > 0.001f)
-						{
-							b->velocity += Vector2Normalize(b->velocity) * min(Vector2DotProduct(b->velocity, dataB.normal), 0.0f);
-						}
 						b->OnCollision(dataB);
+
+						mainGameScene.KickCamera((a->velocity * a->mass + b->velocity * b->mass) * 0.1f);
 					}
 				}
 			}

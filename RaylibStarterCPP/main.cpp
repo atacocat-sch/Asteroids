@@ -7,11 +7,7 @@
 
 int main()
 {
-	Game game;
-
-	Player* player = new Player();
-
-	AsteroidPool* asteroidPool = new AsteroidPool();
+	LoadTitleScene();
 
 	InitWindow(1280, 720, "Definitely not just a blatant rip-off of the hit 1980's game Asteroids");
 
@@ -19,7 +15,7 @@ int main()
 
 	while (!WindowShouldClose())
 	{
-		game.Update();
+		mainGameScene.Update();
 	}
 
 	return 0;

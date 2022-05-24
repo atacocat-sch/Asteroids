@@ -23,12 +23,14 @@
     <ClCompile Include="AsteroidPool.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="TitleCard.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsShape.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="raylibAdapter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="raylibTools.cpp" />
     <ClCompile Include="Updatable.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
@@ -38,6 +40,8 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Clonable.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="TitleCard.h" />
+    <ClInclude Include="raylibTools.h" />
     <ClInclude Include="Utilities.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PhysicsShape.h" />

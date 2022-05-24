@@ -11,7 +11,7 @@ class PhysicsWorld
 {
 public:
 	PhysicsWorld();
-
+	
 	void Update();
 	void Register(PhysicsObject* newObject);
 	void Unregister(PhysicsObject* oldObject);

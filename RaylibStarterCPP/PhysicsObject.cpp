@@ -6,5 +6,5 @@
 
 PhysicsObject::PhysicsObject()
 {
-	mainGameScene->physicsWorld.Register(this);
+	mainGameScene.physicsWorld.Register(this);
 }

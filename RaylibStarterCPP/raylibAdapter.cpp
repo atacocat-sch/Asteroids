@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include <cmath>
+#include "raylibAdapter.h"
 
 Vector2 operator+(Vector2 a, Vector2 b)
 {
@@ -11,6 +12,11 @@ Vector2& operator+=(Vector2& a, Vector2 b)
 {
 	a = Vector2Add(a, b);
 	return a;
+}
+
+Vector2 operator-(Vector2 v)
+{
+	return { -v.x, -v.y };
 }
 
 Vector2 operator - (Vector2 a, Vector2 b)
@@ -32,6 +38,17 @@ Vector2 operator* (Vector2 v, float s)
 Vector2& operator*= (Vector2& v, float s)
 {
 	v = Vector2Scale(v, s);
+	return v;
+}
+
+Vector2 operator/(Vector2 v, float s)
+{
+	return Vector2Divide(v, s);
+}
+
+Vector2& operator/=(Vector2& v, float s)
+{
+	v = Vector2Divide(v, s);
 	return v;
 }
 

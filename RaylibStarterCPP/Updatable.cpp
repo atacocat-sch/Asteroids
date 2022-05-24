@@ -4,5 +4,5 @@
 
 Updatable::Updatable()
 {
-	mainGameScene->Register(this);
+	mainGameScene.Register(this);
 }
