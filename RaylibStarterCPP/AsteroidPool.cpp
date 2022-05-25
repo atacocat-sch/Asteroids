@@ -32,14 +32,14 @@ void AsteroidPool::Update()
 
 	for (int i = 0; i < minAsteroids - activeAsteroids; i++)
 	{
-		GetAsteroid();
+		GetAsteroid(false);
 	}
 
 	minAsteroids = min(minAsteroidOffset + minAsteroidIncrease * mainGameScene.sceneTime, minAsteroidMax);
 	maxSize = min(maxSizeOffset + maxSizeIncrease * mainGameScene.sceneTime, minAsteroidMax);
 }
 
-Asteroid* AsteroidPool::GetAsteroid()
+Asteroid* AsteroidPool::GetAsteroid(bool force)
 {
 	Asteroid* target = nullptr;
 
@@ -52,7 +52,7 @@ Asteroid* AsteroidPool::GetAsteroid()
 		}
 	}
 
-	if (target == nullptr)
+	if (target != nullptr && force)
 	{
 		target = asteroids[0];
 		for (int i = 1; i < asteroidPoolSize; i++)
@@ -64,7 +64,7 @@ Asteroid* AsteroidPool::GetAsteroid()
 		}
 	}
 
-	target->Reset();
+	if (target != nullptr) target->Reset();
 	return target;
 }
 

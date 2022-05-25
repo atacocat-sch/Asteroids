@@ -23,7 +23,7 @@ public:
 
 	void Update();
 
-	Asteroid* GetAsteroid();
+	Asteroid* GetAsteroid(bool force);
 
 	Clonable* Clone();
 

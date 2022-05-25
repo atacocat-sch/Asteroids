@@ -15,7 +15,7 @@ void Asteroid::Split(Vector2 direction)
 {
 	if (size > 1)
 	{
-		Asteroid* asteroid = parentPool->GetAsteroid();
+		Asteroid* asteroid = parentPool->GetAsteroid(true);
 		asteroid->size = size - 1;
 		asteroid->position = position + direction * size * 0.5f;
 		asteroid->velocity = direction * bifricationForce;
