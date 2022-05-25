@@ -20,37 +20,9 @@ Game::Game()
 	SetupCamera();
 }
 
-Game& Game::operator= (const Game& other)
-{
-	if (&other == this)
-	{
-		return *this;
-	}
-
-	cameraSize = other.cameraSize;
-
-	for (int i = 0; i < updatableObjects.size(); i++)
-	{
-		delete updatableObjects[i];
-	}
-	updatableObjects.clear();
-
-	physicsWorld = PhysicsWorld();
-
-	for (Updatable* updatable : other.updatableObjects)
-	{
-		updatableObjects.push_back((Updatable*)updatable->Clone());
-	}
-}
-
 Game::~Game()
 {
-	for (int i = 0; i < updatableObjects.size(); i++)
-	{
-		delete updatableObjects[i];
-	}
-
-	updatableObjects.clear();
+	Clear();
 }
 
 void Game::Update()
@@ -63,7 +35,10 @@ void Game::Update()
 
 	SetupCamera();
 
-	physicsWorld.Update();
+	if (!paused)
+	{
+		physicsWorld.Update();
+	}
 
 	for (Updatable* updatable : updatableObjects)
 	{
@@ -76,6 +51,23 @@ void Game::Update()
 				return;
 			}
 		}
+	}
+
+	if (IsKeyPressed(KEY_ESCAPE))
+	{
+		if (!paused)
+		{
+			SetPause(true);
+		}
+		else
+		{
+			LoadTitleScene();
+		}
+	}
+
+	if (IsKeyPressed(KEY_ENTER) && paused)
+	{
+		SetPause(false);
 	}
 
 	BeginDrawing();
@@ -115,6 +107,26 @@ void Game::KickCamera(Vector2 force)
 	shakeVelocity += force;
 }
 
+void Game::SetPause(bool state)
+{
+	paused = state;
+
+	pauseCards[0]->active = state;
+	pauseCards[1]->active = state;
+}
+
+void Game::Clear()
+{
+	physicsWorld = PhysicsWorld();
+
+	for (int i = 0; i < updatableObjects.size(); i++)
+	{
+		delete updatableObjects[i];
+	}
+
+	updatableObjects.clear();
+}
+
 void Game::SetupCamera()
 {
 	int screenWidth = GetScreenWidth();
@@ -128,19 +140,24 @@ void Game::SetupCamera()
 void LoadNewGameScene()
 {
 	forceStop = true;
-	mainGameScene = Game();
+	mainGameScene.Clear();
 
 	new Player();
 	new AsteroidPool();
 
-	new KeyAction(KEY_ESCAPE, LoadTitleScene);
+	mainGameScene.pauseCards[0] = new TitleCard(string("Paused"), { 0.0f, 0.0f }, 64.0f);
+	mainGameScene.pauseCards[1] = new TitleCard(string("Press ENTER to Continue\nPress ESCAPE to Quit"), { 0.0f, 160.0f }, 22.0f);
+
+	mainGameScene.pauseCards[0]->active = false;
+	mainGameScene.pauseCards[1]->active = false;
+
 	SetExitKey(0);
 }
 
 void LoadTitleScene()
 {
 	forceStop = true;
-	mainGameScene = Game();
+	mainGameScene.Clear();
 
 	new TitleCard(string("Definitely not just\na blatant rip-off of the hit\n1980's game Asteroids"), {0.0f, 0.0f}, 64.0f);
 	new TitleCard(string("Press ENTER to Start"), {0.0f, 160.0f}, 22.0f);
