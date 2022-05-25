@@ -14,7 +14,6 @@ public:
 
 	TitleCard(string text, Vector2 offset, float size);
 
-	void Update();
 	void DrawGUI();
 
 	Clonable* Clone();

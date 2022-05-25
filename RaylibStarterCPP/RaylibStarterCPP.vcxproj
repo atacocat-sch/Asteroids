@@ -23,6 +23,7 @@
     <ClCompile Include="AsteroidPool.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="KeyAction.cpp" />
     <ClCompile Include="TitleCard.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsShape.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Clonable.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="KeyAction.h" />
     <ClInclude Include="TitleCard.h" />
     <ClInclude Include="raylibTools.h" />
     <ClInclude Include="Utilities.h" />

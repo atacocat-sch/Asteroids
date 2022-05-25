@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "AsteroidPool.h"
 #include "TitleCard.h"
+#include "KeyAction.h"
 
 #include <iostream>
 
@@ -131,6 +132,9 @@ void LoadNewGameScene()
 
 	new Player();
 	new AsteroidPool();
+
+	new KeyAction(KEY_ESCAPE, LoadTitleScene);
+	SetExitKey(0);
 }
 
 void LoadTitleScene()
@@ -139,8 +143,12 @@ void LoadTitleScene()
 	mainGameScene = Game();
 
 	new TitleCard(string("Definitely not just\na blatant rip-off of the hit\n1980's game Asteroids"), {0.0f, 0.0f}, 64.0f);
-	new TitleCard(string("Press SPACE to Start"), {0.0f, 160.0f}, 22.0f);
+	new TitleCard(string("Press ENTER to Start"), {0.0f, 160.0f}, 22.0f);
 	new TitleCard(string("Press GRAVE to achieve nothing"), {0.0f, 195.0f}, 22.0f);
 	new TitleCard(string("Press ESCAPE to Quit"), {0.0f, 230.0f}, 22.0f);
+
+	new KeyAction(KEY_ENTER, LoadNewGameScene);
+	SetExitKey(KEY_ESCAPE);
+
 	AsteroidPool* asteroidPool = new AsteroidPool();
 }

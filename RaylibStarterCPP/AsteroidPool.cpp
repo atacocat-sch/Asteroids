@@ -2,7 +2,10 @@
 #include "AsteroidPool.h"
 #include "Game.h"
 
-#include <iostream>
+#include <algorithm>
+
+using std::max;
+using std::min;
 
 AsteroidPool::AsteroidPool()
 {
@@ -32,8 +35,8 @@ void AsteroidPool::Update()
 		GetAsteroid();
 	}
 
-	minAsteroids = minAsteroidOffset + minAsteroidIncrease * mainGameScene.sceneTime;
-	maxSize = maxSizeOffset + maxSizeIncrease * mainGameScene.sceneTime;
+	minAsteroids = min(minAsteroidOffset + minAsteroidIncrease * mainGameScene.sceneTime, minAsteroidMax);
+	maxSize = min(maxSizeOffset + maxSizeIncrease * mainGameScene.sceneTime, minAsteroidMax);
 }
 
 Asteroid* AsteroidPool::GetAsteroid()
@@ -57,7 +60,6 @@ Asteroid* AsteroidPool::GetAsteroid()
 			if (asteroids[i]->age > target->age)
 			{
 				target = asteroids[i];
-				std::cout << "uh oh" << std::endl;
 			}
 		}
 	}

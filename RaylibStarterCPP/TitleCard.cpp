@@ -11,14 +11,6 @@ TitleCard::TitleCard(string text, Vector2 offset, float size)
 	this->size = size;
 }
 
-void TitleCard::Update()
-{
-	if (IsKeyPressed(KEY_SPACE))
-	{
-		LoadNewGameScene();
-	}
-}
-
 void TitleCard::DrawGUI()
 {
 	const float spacing = size / 10.0f;

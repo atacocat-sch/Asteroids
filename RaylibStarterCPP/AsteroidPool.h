@@ -16,6 +16,9 @@ public:
 	const float minAsteroidOffset = 6.0f;
 	const float maxSizeOffset = 3.0f;
 
+	const float minAsteroidMax = asteroidPoolSize - 10;
+	const float maxSizeMax = 6.0f;
+
 	AsteroidPool();
 
 	void Update();

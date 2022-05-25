@@ -6,6 +6,7 @@
 #include "raylibAdapter.h"
 #include "Asteroid.h"
 #include "TitleCard.h"
+#include "KeyAction.h"
 
 #include <cmath>
 #include <iostream>
@@ -77,14 +78,6 @@ void Player::Update()
 	Shoot(shootInput);
 
 	CalcEdgeCollision();
-
-	if (IsKeyPressed(KEY_MINUS))
-	{
-		lives = 0;
-		new TitleCard(string("Game Over"), { 0.0f, 0.0f }, 72.0f);
-		new TitleCard(string("Press Space to Continue"), { 0.0f, 60.0f }, 18.0f);
-		active = false;
-	}
 
 	invincibility -= GetFrameTime();
 }
@@ -228,7 +221,10 @@ void Player::OnCollision(CollisionData data)
 		if (lives == 0)
 		{
 			new TitleCard(string("Game Over"), { 0.0f, 0.0f }, 72.0f);
-			new TitleCard(string("Press Space to Continue"), { 0.0f, 60.0f }, 18.0f);
+			new TitleCard(string("Press ENTER to Continue"), { 0.0f, 60.0f }, 18.0f);
+
+			new KeyAction(KEY_ENTER, LoadNewGameScene);
+
 			active = false;
 		}
 	}
