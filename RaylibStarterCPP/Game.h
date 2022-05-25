@@ -7,13 +7,16 @@
 
 class Updatable;
 class Game;
+class TitleCard;
+
 extern Game mainGameScene;
 
 class Game
 {
 public:
 	Game();
-	Game& operator= (const Game& other);
+	Game(const Game& other) = delete;
+	Game& operator= (const Game& other) = delete;
 	~Game();
 
 	void Update();
@@ -26,6 +29,12 @@ public:
 	float sceneTime = 0.0f;
 
 	PhysicsWorld physicsWorld;
+
+	bool paused;
+	TitleCard* pauseCards[2] = { nullptr, nullptr };
+
+	void SetPause(bool state);
+	void Clear();
 
 private:
 	std::vector<Updatable*> updatableObjects;

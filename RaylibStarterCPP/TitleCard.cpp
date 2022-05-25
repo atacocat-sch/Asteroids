@@ -4,6 +4,8 @@
 #include "TitleCard.h"
 #include "Game.h"
 
+#include <iostream>
+
 TitleCard::TitleCard(string text, Vector2 offset, float size)
 {
 	this->text = text;
